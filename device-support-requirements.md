@@ -5,6 +5,7 @@ The use of “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT
 
 ### Table of Contents
 
+* [Device ownership](#device-ownership)
 * [Attaining exceptions](#attaining-exceptions)
   * [Process](#process)
 * [Hardware Support](#hardware-support)
@@ -57,7 +58,12 @@ The use of “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT
   * [Wiki](#wiki)
   * [Stability](#stability)
   * [Recovery](#recovery)
+  * [Addon packages](#addon-packages)
 * [Exceptions](#exceptions)
+
+# Device ownership
+
+* Maintainers MUST own the device or at least a variant of it (devices with similar hardware but a different marketing name are allowed).
 
 # Attaining exceptions
 
@@ -282,8 +288,9 @@ __Hardware deviations are defined as exemptions granted for hardware requirement
 
 __LineageOS operates under the assumption that OEM device licensing for exFAT is attached to the device, not software. LineageOS will comply with all requests for removal of exFAT support from OEMs, Microsoft or their representatives upon contact to legal@lineageos.org.__
 
-* All devices with exFAT support on stock MAY support exFAT with (and only with) a kernel based implementation.
-* All devices without exFAT support on stock MUST NOT support exFAT.
+* All devices shipping with a Linux kernel version of lower than 5.7 with exFAT support on stock MAY support exFAT with (and only with) a kernel based implementation of the maintainers choice.
+* All devices shipping with a Linux kernel version of greater than or equal to 5.7 MAY support exFAT with the mainline Linux implementation, or the implementation provided by their device's vendor.
+* All devices not meeting one of the above requirements MUST NOT support exFAT.
 
 ## Additional Features
 
@@ -354,6 +361,10 @@ __Software deviations are defined as exemptions granted for software requirement
 * Maintainers SHOULD verify that Teamwin Recovery Project (TWRP) official distributions work for LineageOS installation.
 * Failures in official TWRP recoveries SHOULD be raised with the TWRP team or remedied by the maintainer.
 
+## Addon packages
+
+* Maintainers wishing to ship LineageOS 19.0+ for their device MUST verify addon packages listed on the wiki can be installed through Lineage Recovery.
+
 # Exceptions
 
 All currently granted exceptions should be listed in the following table. To request an exception, please submit a change to this repository.
@@ -363,7 +374,8 @@ All currently granted exceptions should be listed in the following table. To req
 | 2018/02/08 | Samsung            | Hardware Encryption            | Samsung devices that cannot support hardware encryption due to Knox/Tee are exempted from the hardware crypto requirements. MUST still support software crypto. |
 | 2018/02/11 | Android TV devices | In-Remote Microphones          | Requires proprietary audio routing/methods that have no OSS counterpart, and rely on proprietary functions. MUST support Microphone input through the Android TV Remote app.|
 | 2018/02/12 | hlte[can/tmo/usc/vzw] | NFC                         | Stock NFC HAL is undocumented and doesn't match any known interfaces. Stealing configs and firmware from devices with a proper setup fails due to a signature mismatch when the (required) firmware download is attempted. |
-| 2019/10/21 | s3ve3g.            | NFC                         | Stock NFC HAL is undocumented and doesn't match any known interfaces. Stealing configs and firmware from devices with a proper setup fails due to a signature mismatch when the (required) firmware download is attempted. |
+| 2019/10/21 | s3ve3g*            | NFC                         | Stock NFC HAL is undocumented and doesn't match any known interfaces. Stealing configs and firmware from devices with a proper setup fails due to a signature mismatch when the (required) firmware download is attempted. |
+| 2023/04/11 | LGE FDE devices | Encryption | As of Android 13, FDE is no longer supported. Some devices have custom keymaster HAL implementations that only allow FDE to function. Devices only capable of using FDE that are promoted to LineageOS 20 or above are exempted from encryption requirements. These devices MUST display a notice on the LineageOS Wiki that details this exemption. |
 ---
 
 __This document is licensed CC-BY-3.0, with portions adapted from Google’s CDD requirements.__
